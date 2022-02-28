@@ -2,6 +2,7 @@
 
 body {
   margin: 0;
+  padding: 0;
   font-family: "Nunito", sans-serif;
 }
 
@@ -23,7 +24,8 @@ body {
   background-color: #1f2128;
   overflow: hidden;
   padding: 2rem;
-  padding-left: 5rem;
+  padding-left: 4rem;
+  margin: auto;
   width: 100%;
   color: white;
 }
@@ -40,7 +42,8 @@ body {
   width: 100%;
   height: 150px;
   object-fit: cover;
-  border-radius: 1rem;
+  border-top-left-radius: 1rem;
+  border-top-right-radius: 1rem;
 }
 .game-tags {
   display: flex;
@@ -121,7 +124,6 @@ body {
   display: flex;
   padding: 8rem 5rem;
   gap: 4rem;
-  /* flex-wrap: wrap; */
 }
 .details-title {
   font-size: 4rem;
@@ -207,4 +209,77 @@ body {
 }
 .skip {
   background-color: #f83a48;
+}
+
+/* Media Queries */
+
+@media screen and (max-width: 800px) {
+  .details-img {
+    width: 200px;
+    height: 300px;
+  }
+  .details-title {
+    font-size: 3rem;
+    /* line-height: 1.3; */
+  }
+  .details-desc {
+    font-size: 0.7rem;
+  }
+  .details-recommendations > * {
+    margin-right: 0.5rem;
+    font-size: 0.7rem;
+    border-radius: 1rem;
+    padding: 2px 6px;
+  }
+  .details-platform {
+    font-size: 1rem;
+  }
+  .details-publisher div {
+    font-size: 0.7rem;
+  }
+  .details-recommendations {
+    flex-wrap: wrap;
+  }
+  .details-recommendations > * {
+    margin-top: 0.5rem;
+  }
+}
+@media screen and (max-width: 650px) {
+  .details-card {
+    padding: 3rem 3rem;
+    gap: 2rem;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  .details-stats {
+    flex-direction: column;
+    margin-top: 1rem;
+  }
+  .details-platform {
+    font-size: 0.8rem;
+  }
+  .details-publisher {
+    display: none;
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .home-header {
+    flex-direction: column;
+  }
+  .searchBox {
+    width: 250px;
+  }
+  .select-filter {
+    width: 250px;
+  }
+  .card-container > * {
+    width: 100%;
+    margin-left: 1.5rem;
+    margin-bottom: 1rem;
+  }
+  .details-title {
+    font-size: 2rem;
+  }
 }

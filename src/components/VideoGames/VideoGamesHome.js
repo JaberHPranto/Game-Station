@@ -58,9 +58,13 @@ function VideoGamesHome() {
         <SearchBox handleSearch={handleSearch} />
         <Filter handleSelect={handleSelect} />
       </div>
-      <Row gutter={[0, 32]} className="card-container">
+      {/* <Row gutter={[0, 32]} className="card-container"> */}
+      <Row
+        gutter={[0, { xs: 8, sm: 16, md: 24, lg: 32 }]}
+        className="card-container"
+      >
         {gameData?.map((game) => (
-          <Col span={6} key={game.id}>
+          <Col xs={24} sm={12} md={8} lg={6} xxl={3} key={game.id}>
             <Link to={`/game/${game.id}`}>
               <VideoGameCard
                 name={game.name}
