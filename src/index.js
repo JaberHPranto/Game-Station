@@ -13,7 +13,6 @@ ReactDOM.render(
       <Router>
         <App />
       </Router>
-      {/* <ReactQueryDevtools initialIsOpen={false} position="bottom-left" /> */}
     </QueryClientProvider>
   </React.StrictMode>,
   document.getElementById("root")
