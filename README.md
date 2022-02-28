@@ -1,6 +1,10 @@
 # Game Station
 
 A video game application to know all stuffs related to your favourite video games and explore new games.
+<br/>
+
+ [![Netlify Status](https://api.netlify.com/api/v1/badges/3e14aec0-8f2b-456e-8cbf-a6c0680796b3/deploy-status)](https://app.netlify.com/sites/keen-clarke-8b4e27/deploys)
+
 
 ## Demo
 
