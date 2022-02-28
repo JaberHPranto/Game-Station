@@ -58,7 +58,6 @@ function VideoGamesHome() {
         <SearchBox handleSearch={handleSearch} />
         <Filter handleSelect={handleSelect} />
       </div>
-      {/* <Row gutter={[0, 32]} className="card-container"> */}
       <Row
         gutter={[0, { xs: 8, sm: 16, md: 24, lg: 32 }]}
         className="card-container"
