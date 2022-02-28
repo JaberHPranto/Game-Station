@@ -6,7 +6,7 @@ const client = axios.create({
     "x-rapidapi-host": "rawg-video-games-database.p.rapidapi.com",
     "x-rapidapi-key": "b39424c555msh6f00f802d8e6d77p132f3djsnf24f0f931bad",
   },
-  params: { key: "33656693d93946ccb3ad4a32307a19d7" },
+  params: { key: process.env.REACT_APP_API_KEY },
 });
 
 export const request = ({ ...options }) => {
