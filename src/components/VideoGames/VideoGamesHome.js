@@ -1,5 +1,6 @@
-import { Col, Pagination, Row, Select } from "antd";
-import { useEffect, useState } from "react";
+import { Col, Pagination, Row } from "antd";
+import { useState } from "react";
+import { useQuery } from "react-query";
 import { Link } from "react-router-dom";
 import { request } from "../../api/axios-util";
 import defaultImage from "../../images/defaultImage.jpg";
@@ -8,81 +9,77 @@ import Loader from "../Loader";
 import SearchBox from "../SearchBox";
 import VideoGameCard from "./VideoGameCard";
 
-const { Option } = Select;
-
 function VideoGamesHome() {
-  const [gameData, setGameData] = useState([]);
   const [pageNumber, setPageNumber] = useState(1);
   const [searchTerm, setSearchTerm] = useState("");
   const [select, setSelect] = useState("");
-  const [loading, setLoading] = useState(true);
 
-  const getVideoGamesData = async () => {
-    request({
+  const fetchVideoGamesData = async () => {
+    return request({
       method: "GET",
       url: "/games",
       params: { page: pageNumber, search: searchTerm, ordering: select },
-    })
-      .then((res) => {
-        setLoading(false);
-        setGameData(res?.data?.results);
-        console.log(res?.data?.results[0]);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    });
   };
+
+  const { data: gameData, isLoading } = useQuery(
+    ["games", pageNumber, searchTerm, select],
+    fetchVideoGamesData,
+    {
+      keepPreviousData: true,
+      refetchOnWindowFocus: false,
+      select: (data) => {
+        return data?.data?.results;
+      },
+    }
+  );
 
   const handleChange = (current) => {
     setPageNumber(current);
   };
 
   const handleSearch = (value) => {
+    setPageNumber(1);
     setSearchTerm(value);
   };
 
   const handleSelect = (value) => {
+    setPageNumber(1);
     setSelect(value);
   };
 
-  useEffect(() => {
-    getVideoGamesData();
-  }, [pageNumber, searchTerm, select]);
+  if (isLoading) {
+    return <Loader />;
+  }
 
   return (
     <div>
-      {loading ? (
-        <Loader />
-      ) : (
-        <>
-          <div className="home-header">
-            <SearchBox handleSearch={handleSearch} />
-            <Filter handleSelect={handleSelect} />
-          </div>
-          <Row gutter={[0, 32]} className="card-container">
-            {gameData?.map((game) => (
-              <Col span={6} key={game.id}>
-                <Link to={`/game/${game.id}`}>
-                  <VideoGameCard
-                    name={game.name}
-                    image={game.background_image || defaultImage}
-                    tags={game.genres}
-                    rating={game.rating}
-                    released={game.released}
-                  />
-                </Link>
-              </Col>
-            ))}
-            <Pagination
-              onChange={handleChange}
-              defaultCurrent={1}
-              total={1000}
-              pageSize={20}
-              className="paginate"
-            />
-          </Row>
-        </>
-      )}
+      <div className="home-header">
+        <SearchBox handleSearch={handleSearch} />
+        <Filter handleSelect={handleSelect} />
+      </div>
+      <Row gutter={[0, 32]} className="card-container">
+        {gameData?.map((game) => (
+          <Col span={6} key={game.id}>
+            <Link to={`/game/${game.id}`}>
+              <VideoGameCard
+                name={game.name}
+                image={game.background_image || defaultImage}
+                tags={game.genres}
+                rating={game.rating}
+                released={game.released}
+              />
+            </Link>
+          </Col>
+        ))}
+        <Pagination
+          onChange={handleChange}
+          defaultCurrent={1}
+          total={1000}
+          pageSize={20}
+          className="paginate"
+        />
+      </Row>
     </div>
   );
 }
